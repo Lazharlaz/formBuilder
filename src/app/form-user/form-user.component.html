@@ -2,12 +2,12 @@
 
     <h1>Formulaire Utilisateur</h1>
 
-    <form (ngSubmit)="createUser()" [formGroup]="userForm" #myForm="ngForm">
+    <form (ngSubmit)="createUser()" [formGroup]="formUser" #myForm="ngForm">
         <div class="form-group">
             <label for="name">Nom</label>
             <input type="text" id="name" formControlName="name">
         </div>
-
+<div formGroupName="credentials" class="credentials">
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" formControlName="email">
@@ -17,26 +17,27 @@
             <label for="password">Mot de passe</label>
             <input type="password" id="password" formControlName="password">
         </div>
-
+    </div>
+<div formGroupName="address" class="adress">
         <div class="form-group">
             <label for="adresseNumber">Numéro de l'adresse</label>
-            <input type="number" id="adresseNumber" formControlName="adresseNumber">
+            <input type="number" id="adresseNumber" formControlName="number">
         </div>
 
         <div class="form-group">
             <label for="adresseStreetName">Nom de la rue</label>
-            <input type="text" id="adresseStreetName" formControlName="adresseStreetName">
+            <input type="text" id="adresseStreetName" formControlName="streetName">
         </div>
 
         <div class="form-group">
             <label for="adresseZipCode">Code postal</label>
-            <input type="text" id="adresseZipCode" formControlName="adresseZipCode">
+            <input type="text" id="adresseZipCode" formControlName="zipCode">
         </div>
 
         <div class="form-group">
             <label for="adresseCity">Ville</label>
-            <input type="text" id="adresseCity" formControlName="adresseCity">
+            <input type="text" id="adresseCity" formControlName="city">
         </div>
-
+    </div>
         <button type="submit">Soumettre</button>
     </form>

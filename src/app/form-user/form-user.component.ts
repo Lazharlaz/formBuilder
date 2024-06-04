@@ -1,51 +1,59 @@
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { Adresse } from '../../model/Adresse';
 import { User } from '../../model/user';
 
 @Component({
   selector: 'app-form-user',
   standalone: true,
-  imports: [CommonModule,FormsModule,CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './form-user.component.html',
   styleUrl: './form-user.component.css'
 })
 export class FormUserComponent {
 
- 
-  userForm = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    adresseNumber: new FormControl(''),
-    adresseStreetName: new FormControl(''),
-    adresseZipCode: new FormControl(''),
-    adresseCity: new FormControl(''),
+  constructor(private formBuilder: FormBuilder) { }
+
+  formUser = this.formBuilder.group({
+    name: [''],
+    address: this.formBuilder.group({
+      streetName: [''],
+      city: [''],
+      zipCode: [''],
+      number: [''],
+
+    }),
+    credentials: this.formBuilder.group({
+      email: [''],
+      password: [''],
     })
-  
-    createUser(){
-     
-        const adresse: Adresse = {
-          number: this.userForm.value.name ?? "",
-         streetName: this.userForm.value.adresseStreetName ?? "",
-         zipCode: this.userForm.value.adresseZipCode ?? "",
-          city:this.userForm.value.adresseCity ?? "",
-        };
-        const user: User = new User(
-          this.userForm.value.name ?? "",
-          this.userForm.value.email ?? "",
-          this.userForm.value.password ?? "",
-          adresse
-        );
-      
-     
-     console.log(user)
-  
-    }
-  
-  
-    
+  });
+
+
+
+  createUser() {
+
+    const adresse: Adresse = {
+      number: this.formUser.value.address?.number ?? "",
+      streetName:  this.formUser.value.address?.streetName ?? "",
+      zipCode:  this.formUser.value.address?.zipCode ?? "",
+      city:  this.formUser.value.address?.city ?? "",
+    };
+    const user: User = new User(
+      this.formUser.value.name ?? "",
+      this.formUser.value.credentials?.email ?? "",
+      this.formUser.value.credentials?.password ?? "",
+      adresse
+    );
+
+
+    console.log(this.formUser.value)
+
+  }
+
+
+
 
 }
